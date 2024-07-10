@@ -1,5 +1,5 @@
 # FastSaas: Everything you need to take-off soon as possible.
-![alt text](https://fast-saas.tejaash.in/thumbnail.png)
+![alt text](https://raw.githubusercontent.com/tejashVaishnav/Fast-saas/master/public/thumbnail.png)
 Ultimate SaaS Kickstarter: A lean boilerplate for rapidly
 launching your product. Built with modern technologies, Perfect
 for developers who want to focus on their unique product features

@@ -29,7 +29,7 @@ export async function sendWelcomeEmail({
     await transporter.sendMail({
       from: "Tejas from FastSaas <knifergamingyt@gmail.com>",
       to: email as string,
-      subject: "Welcome to Papermark!",
+      subject: "Welcome to Fast-SaaS!",
       html: emailHtml,
     });
   } catch (error) {
