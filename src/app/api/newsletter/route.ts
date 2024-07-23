@@ -19,10 +19,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Unauthenticated' }, { status: 401 })
   }
 
-  console.log("Session:", session) // For debugging
-
   if (user?.UserAccessLevel !== "Pro") {
-    console.log(session.user.UserAccessLevel)
     return NextResponse.json({ error: 'Pro subscription required' }, { status: 403 })
   }
 

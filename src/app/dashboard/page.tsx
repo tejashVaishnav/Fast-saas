@@ -25,7 +25,7 @@ import { authOptions } from "../api/auth/[...nextauth]/options";
 import { link } from "fs";
 import { ContactUsForm } from "@/components/layout/dashboard/contact-us";
 import { notFound } from "next/navigation";
-import { NewsLetterForm } from "@/components/layout/dashboard/newsLetterform"; 
+import { NewsLetterForm } from "@/components/layout/dashboard/newsLetterform";
 
 enum PopularPlan {
   NO = 0,
@@ -98,7 +98,7 @@ const plans: PlanProps[] = [
 
 export default async function page() {
   const session = await getServerSession(authOptions);
-  console.log(session)
+
   if (!session) {
     notFound();
   }
@@ -159,7 +159,14 @@ export default async function page() {
             </p>
 
             <div className="space-y-4 md:space-y-0 md:space-x-4">
-              <Link href={'/github'} target="_blank" className={cn("w-5/6 md:w-1/4 font-bold group/arrow",buttonVariants({variant:"default"}))}>
+              <Link
+                href={"/github"}
+                target="_blank"
+                className={cn(
+                  "w-5/6 md:w-1/4 font-bold group/arrow",
+                  buttonVariants({ variant: "default" })
+                )}
+              >
                 Get Started
                 <ArrowRight className="size-5 ml-2 group-hover/arrow:translate-x-1 transition-transform" />
               </Link>
@@ -298,8 +305,8 @@ export default async function page() {
           )}
         </div>
         <section className="  w-full py-10">
-          <NewsLetterForm userStat={user?.UserAccessLevel as string}/>
-        </section> 
+          <NewsLetterForm userStat={user?.UserAccessLevel as string} />
+        </section>
       </section>
     </>
   );

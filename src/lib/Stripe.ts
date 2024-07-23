@@ -38,6 +38,7 @@ export async function createCheckoutLink(
     success_url: process.env.NEXTAUTH_URL + "/dashboard",
     cancel_url: process.env.NEXTAUTH_URL + "/dashboard",
     customer: customer,
+    billing_address_collection: 'required',
     metadata: {
       userId: userID,
     },
