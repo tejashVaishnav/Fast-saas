@@ -63,31 +63,24 @@ export async function POST(req: NextRequest, res: NextResponse) {
           status: 400,
         });
 
-      if (event?.type === "checkout.session.completed") {
-        // Retrieve the subscription details from Stripe.
-        const subscription = await stripe.subscriptions.retrieve(
-          session.subscription as string
-        );
+      const subscription = await stripe.subscriptions.retrieve(
+        session.subscription as string
+      );
 
-        // Update the user stripe into in our database.
-        // Since this is the initial subscription, we need to update
-        // the subscription id and customer id.
-        await prisma.user.update({
-          where: {
-            id: session?.metadata?.userId,
-          },
-          data: {
-            UserAccessLevel: "Pro",
-            stripeSubscriptionId: subscription.id,
-            stripe_customer_id: subscription.customer as string,
-            stripePriceId: subscription.items.data[0].price.id,
-            stripeCurrentPeriodEnd: new Date(
-              subscription.current_period_end * 1000
-            ),
-          },
-        });
-      }
-
+      await prisma.user.update({
+        where: {
+          id: session?.metadata?.userId,
+        },
+        data: {
+          UserAccessLevel: "Pro",
+          stripeSubscriptionId: subscription.id,
+          stripe_customer_id: subscription.customer as string,
+          stripePriceId: subscription.items.data[0].price.id,
+          stripeCurrentPeriodEnd: new Date(
+            subscription.current_period_end * 1000
+          ),
+        },
+      });
 
       // send receipt
       const emailHtml = render(
@@ -101,7 +94,23 @@ export async function POST(req: NextRequest, res: NextResponse) {
       });
       break;
 
-    // ... handle other event types
+    case "customer.subscription.deleted":
+      const deleteSubscription = await stripe.subscriptions.retrieve(
+        session.subscription as string
+      );
+
+      await prisma.user.update({
+        where: {
+          stripe_customer_id: deleteSubscription.customer as string,
+        },
+        data: {
+          UserAccessLevel: null,
+          stripePriceId: null,
+          stripeCurrentPeriodEnd: null,
+        },
+      });
+
+      break;
     default:
       console.log(`Unhandled event type ${event.type}`);
   }
