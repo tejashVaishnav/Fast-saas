@@ -2,7 +2,7 @@
     "version": 2,
     "crons": [
       {
-        "path": "/api/cron",
+        "path": "/api/cron/keep-alive",
         "schedule": "0 0 * * *"
       }
     ]
