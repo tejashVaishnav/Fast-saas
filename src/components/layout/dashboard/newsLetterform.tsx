@@ -68,10 +68,10 @@ export function NewsLetterForm({userStat}:{userStat:string}) {
                 
               </p>
             </div>
-            <div className="w-full max-w-xl space-y-2 pt-5 mx-auto">
+            <div className="w-full space-y-2 pt-5 mx-auto">
               <form
                 onSubmit={handleSubmit(onSubmit)}
-                className="flex flex-col items-center gap-2 sm:flex-row space-x-2  "
+                className="flex flex-col items-center gap-2    "
               >
                 <div className="w-full">
                   <Input

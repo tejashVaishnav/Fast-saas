@@ -31,6 +31,11 @@ model Account {
   @@index([userId])
 }
 
+model Dummy {
+  id        String   @id @default(cuid())
+  name      String
+  updatedAt DateTime @default(now())
+}
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
